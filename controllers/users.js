@@ -66,39 +66,41 @@ module.exports.login = (req, res, next) => {
     });
 };
 
-module.exports.getUsers = (req, res, next) => {
-  User.find({})
-    .then((user) => res.send(user))
-    .catch(next);
-};
+// module.exports.getUsers = (req, res, next) => {
+//   User.find({})
+//     .then((user) => res.send(user))
+//     .catch(next);
+// };
 
+// возвращает информацию о пользователе (email и имя)
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => res.send(user))
     .catch(next);
 };
 
-module.exports.getUserId = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь с таким id не найден');
-      }
-      res.send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Введен некорректный id'));
-      }
-      next(err);
-    });
-};
+// module.exports.getUserId = (req, res, next) => {
+//   User.findById(req.params.userId)
+//     .then((user) => {
+//       if (!user) {
+//         throw new NotFoundError('Пользователь с таким id не найден');
+//       }
+//       res.send(user);
+//     })
+//     .catch((err) => {
+//       if (err.name === 'CastError') {
+//         next(new ValidationError('Введен некорректный id'));
+//       }
+//       next(err);
+//     });
+// };
 
+// обновляет информацию о пользователе (email и имя)
 module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name, about },
+    { name, email },
     {
       new: true, // обработчик then получит на вход обновлённую запись
       runValidators: true, // данные будут валидированы перед изменением
@@ -113,21 +115,21 @@ module.exports.updateUser = (req, res, next) => {
     });
 };
 
-module.exports.updateAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    {
-      new: true, // обработчик then получит на вход обновлённую запись
-      runValidators: true, // данные будут валидированы перед изменением
-    },
-  )
-    .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new ValidationError('Переданы некорректные данные'));
-      }
-      next(err);
-    });
-};
+// module.exports.updateAvatar = (req, res, next) => {
+//   const { avatar } = req.body;
+//   User.findByIdAndUpdate(
+//     req.user._id,
+//     { avatar },
+//     {
+//       new: true, // обработчик then получит на вход обновлённую запись
+//       runValidators: true, // данные будут валидированы перед изменением
+//     },
+//   )
+//     .then((user) => res.send(user))
+//     .catch((err) => {
+//       if (err.name === 'ValidationError') {
+//         next(new ValidationError('Переданы некорректные данные'));
+//       }
+//       next(err);
+//     });
+// };

@@ -5,12 +5,12 @@ const allowedCors = [
   'localhost:3000',
   'https://localhost:3000',
   'http://localhost:3000',
-  'https://domainname.igronat.nomoredomains.xyz',
-  'http://domainname.igronat.nomoredomains.xyz',
-  'https://84.252.136.184',
-  'http://84.252.136.184',
-  'https://api.domainname.igronat.nomoredomains.xyz',
-  'http://api.domainname.igronat.nomoredomains.xyz',
+  'https://igronat.front.nomoreparties.sbs',
+  'http://igronat.front.nomoreparties.sbs',
+  'https://130.193.43.200',
+  'http://130.193.43.200',
+  'https://igronat.back.nomoreparties.sbs',
+  'http://igronat.back.nomoreparties.sbs',
 ];
 
 module.exports = (req, res, next) => {

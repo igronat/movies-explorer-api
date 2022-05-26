@@ -9,8 +9,6 @@ const {
   createMovie,
   getMovies,
   deleteMovie,
-  // likeCard,
-  // dislikeCard,
 } = require('../controllers/movies');
 
 router.post('/movies', createMovie);
@@ -20,15 +18,5 @@ router.delete('/movies/:_id', celebrate({
     _id: Joi.objectId(),
   }),
 }), deleteMovie);
-// router.put('/cards/:cardId/likes', celebrate({
-//   params: Joi.object().keys({
-//     cardId: Joi.objectId(),
-//   }),
-// }), likeCard);
-// router.delete('/cards/:cardId/likes', celebrate({
-//   params: Joi.object().keys({
-//     cardId: Joi.objectId(),
-//   }),
-// }), dislikeCard);
 
 module.exports = router;

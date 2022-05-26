@@ -11,25 +11,21 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
-  if (!email || !password) {
-    throw new ValidationError('Пароль и почта не могут быть пустыми');
+  if (!email || !password || !password) {
+    throw new ValidationError('Пароль, имя и почта не могут быть пустыми');
   }
   bcrypt
     .hash(password, 10)
     .then((hash) => User.create({
       name,
-      about,
-      avatar,
       email,
       password: hash,
     }))
     // вернём записанные в базу данные
     .then((user) => res.send({
       name: user.name,
-      about: user.about,
-      avatar: user.avatar,
       email: user.email,
       _id: user._id,
     }))

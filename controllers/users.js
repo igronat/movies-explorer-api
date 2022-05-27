@@ -31,10 +31,9 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('Такой пользователь уже существует'));
+      } else {
+        next(err);
       }
-      if (err.name === 'ValidationError') {
-        next(new ValidationError('Переданы некорректные данные'));
-      } next(err);
     });
 };
 
@@ -56,7 +55,7 @@ module.exports.login = (req, res, next) => {
       res.send({ token });
     })
     .catch(() => {
-      next(new UnauthorizedError('В доступе отказано'));
+      next(new UnauthorizedError('Неправильная почта или пароль'));
     });
 };
 
@@ -82,6 +81,9 @@ module.exports.updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные'));
+      }
+      if (err.code === 11000) {
+        next(new ConflictError('Этот почтовый ящик принадлежит другому пользователю'));
       }
       next(err);
     });
